@@ -58,4 +58,14 @@ class SnippetView(ModelViewSet):
         return Response(response_data, status=status.HTTP_204_NO_CONTENT)
 
 
+class TagView(ReadOnlyModelViewSet):
+    """
+    Tag API endpoints.
+
+    - `GET /api/tags/` → List all tags.
+    - `GET /api/tags/{id}/` → Get tag details.
+    - `GET /api/tags/{id}/snippets/` → Get snippets linked to a tag.
+    """
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
