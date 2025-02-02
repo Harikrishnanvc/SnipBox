@@ -1,0 +1,997 @@
+{
+	"info": {
+		"_postman_id": "6b999bd1-975e-49b4-9fc7-c2319dfe20a0",
+		"name": "SnipBox",
+		"description": "```\nSnipBox is a Django REST Framework-b\nased API that allows users to save and manage short notes (snippets) with tags. \nThe system features JWT authentication and provides comprehensive CRUD operations for managing snippets and tags.\n\n ```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19961502",
+		"_collection_link": "https://restless-astronaut-74750.postman.co/workspace/396dfd46-7de4-4747-adfa-64eb6b1f13f6/collection/19961502-6b999bd1-975e-49b4-9fc7-c2319dfe20a0?action=share&source=collection_link&creator=19961502"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"if (jsonData.access) {",
+							"    pm.environment.set(\"token\", jsonData.access);",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}login/",
+					"host": [
+						"{{base_url}}login"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/\nlogin/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\nlogin",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:47:59 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "483"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MTExMDQ3OSwiaWF0IjoxNzM4NTE4NDc5LCJqdGkiOiJiNGJhZWQ5MmI0NGI0NWFiYjk5OTU4OWE5OTE5NmYxZSIsInVzZXJfaWQiOjF9.qGJJBaZNaGOzEo6h-8GmubVYa4hSdc2wLOC6ShIuw2Q\",\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMTEwNDc5LCJpYXQiOjE3Mzg1MTg0NzksImp0aSI6ImY3NDU1MDk2MDRiMjQ1MDg4ZmMxODMxNzVhZjU0NzNlIiwidXNlcl9pZCI6MX0.Oev2e5pQLFz2gbgx1848_d0pRFR6QMfIYtgjb4m2Wrk\"\n}"
+				}
+			]
+		},
+		{
+			"name": "refresh token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MTAwMTU0NywiaWF0IjoxNzM4NDA5NTQ3LCJqdGkiOiJkYWEwNGU5YWExZWE0MzNiYmM0OTg5ZmFjZDM0Y2Y2NyIsInVzZXJfaWQiOjF9.CYDxqc_a2XHWINSFyGzZMw8QfqTbh1VfA7TG42BtJUw\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/refresh/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "refresh token",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MTAwMTU0NywiaWF0IjoxNzM4NDA5NTQ3LCJqdGkiOiJkYWEwNGU5YWExZWE0MzNiYmM0OTg5ZmFjZDM0Y2Y2NyIsInVzZXJfaWQiOjF9.CYDxqc_a2XHWINSFyGzZMw8QfqTbh1VfA7TG42BtJUw\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/\nrefresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\nrefresh",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:49:39 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "241"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMTEwNTc5LCJpYXQiOjE3Mzg0MDk1NDcsImp0aSI6Ijg3YzgwNDVkNjYyNzQ2Y2Q4ZTI1NWJhNTc0ZTIzYzBjIiwidXNlcl9pZCI6MX0.y8BiDzcSqo1zFa4XV2bwCLg59erCLfHv6Syl3KiQt80\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Snippet API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"sample note 4\",\n    \"note\": \"test data 4\",\n    \"tags\": [\n        {\n            \"title\": \"Important\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/snippets/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"snippets",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Snippet API",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"sample note 5\",\n    \"note\": \"test data 5\",\n    \"tags\": [\n        {\n            \"title\": \"Important\"\n        },\n        {\n            \"title\": \"test\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/\napi/snippets/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\napi",
+								"snippets",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:49:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "201"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"title\": \"sample note 5\",\n    \"note\": \"test data 5\",\n    \"tags\": [\n        {\n            \"id\": 2,\n            \"title\": \"important\"\n        },\n        {\n            \"id\": 3,\n            \"title\": \"test\"\n        }\n    ],\n    \"created_at\": \"2025-02-02T17:49:45.568919Z\",\n    \"updated_at\": \"2025-02-02T17:49:45.568977Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Snippet API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"sample note 001\",\n    \"note\": \"test data 001\",\n    \"tags\": [\n        {\n            \"title\": \"Important\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/snippets/11/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"snippets",
+						"11",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Snippet API",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"sample note 004\",\n    \"note\": \"test data 004\",\n    \"tags\": [\n        {\n            \"title\": \"important\"\n        },\n         {\n            \"title\": \"work\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/\napi/snippets/4/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\napi",
+								"snippets",
+								"4",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:50:27 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "205"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"title\": \"sample note 004\",\n    \"note\": \"test data 004\",\n    \"tags\": [\n        {\n            \"id\": 2,\n            \"title\": \"important\"\n        },\n        {\n            \"id\": 5,\n            \"title\": \"work\"\n        }\n    ],\n    \"created_at\": \"2025-02-02T17:49:45.568919Z\",\n    \"updated_at\": \"2025-02-02T17:50:27.883888Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Retrieve Snippet API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/snippets/28/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"snippets",
+						"28",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Retrieve Snippet API",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/\napi/snippets/4/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\napi",
+								"snippets",
+								"4",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:50:54 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "205"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"title\": \"sample note 004\",\n    \"note\": \"test data 004\",\n    \"tags\": [\n        {\n            \"id\": 2,\n            \"title\": \"important\"\n        },\n        {\n            \"id\": 5,\n            \"title\": \"work\"\n        }\n    ],\n    \"created_at\": \"2025-02-02T17:49:45.568919Z\",\n    \"updated_at\": \"2025-02-02T17:50:27.883888Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Snippet Overview API",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/snippets/overview/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"snippets",
+						"overview",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Snippet Overview API",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/\napi/snippets/overview/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\napi",
+								"snippets",
+								"overview",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:51:13 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "441"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"total_snippets\": 2,\n    \"snippets\": [\n        {\n            \"id\": 1,\n            \"title\": \"sample note 5\",\n            \"note\": \"test data 5\",\n            \"tags\": [\n                {\n                    \"id\": 2,\n                    \"title\": \"important\"\n                },\n                {\n                    \"id\": 3,\n                    \"title\": \"test\"\n                }\n            ],\n            \"created_at\": \"2025-02-02T17:33:35.591698Z\",\n            \"updated_at\": \"2025-02-02T17:33:35.591739Z\"\n        },\n        {\n            \"id\": 4,\n            \"title\": \"sample note 004\",\n            \"note\": \"test data 004\",\n            \"tags\": [\n                {\n                    \"id\": 2,\n                    \"title\": \"important\"\n                },\n                {\n                    \"id\": 5,\n                    \"title\": \"work\"\n                }\n            ],\n            \"created_at\": \"2025-02-02T17:49:45.568919Z\",\n            \"updated_at\": \"2025-02-02T17:50:27.883888Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Snippet",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ids\": [\n        28, 32\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/snippets/26/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"snippets",
+						"26",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Snippet",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ids\": [\n        6, 7\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/\napi/snippets/6/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\napi",
+								"snippets",
+								"6",
+								""
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:55:32 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "239"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"total_snippets\": 1,\n    \"snippets\": [\n        {\n            \"id\": 4,\n            \"title\": \"sample note 004\",\n            \"note\": \"test data 004\",\n            \"tags\": [\n                {\n                    \"id\": 2,\n                    \"title\": \"important\"\n                },\n                {\n                    \"id\": 5,\n                    \"title\": \"work\"\n                }\n            ],\n            \"created_at\": \"2025-02-02T17:49:45.568919Z\",\n            \"updated_at\": \"2025-02-02T17:50:27.883888Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Tag list API",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/tags/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"tags",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Tag list API",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/\napi/tags/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\napi",
+								"tags",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:56:01 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "128"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 2,\n            \"title\": \"important\"\n        },\n        {\n            \"id\": 3,\n            \"title\": \"test\"\n        },\n        {\n            \"id\": 5,\n            \"title\": \"work\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Tag Snippet details API",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "Tag snippet details API",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/\napi/tags/5/snippets/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"\napi",
+								"tags",
+								"5",
+								"snippets",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Feb 2025 17:58:14 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.21"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "220"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"snippets\": [\n        {\n            \"id\": 4,\n            \"title\": \"sample note 004\",\n            \"note\": \"test data 004\",\n            \"tags\": [\n                {\n                    \"id\": 2,\n                    \"title\": \"important\"\n                },\n                {\n                    \"id\": 5,\n                    \"title\": \"work\"\n                }\n            ],\n            \"created_at\": \"2025-02-02T17:49:45.568919Z\",\n            \"updated_at\": \"2025-02-02T17:50:27.883888Z\"\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}
