@@ -32,6 +32,11 @@ cp .env.example .env
 ```bash
 docker-compose up --build
 ```
+## Create Super Admin
+```
+docker exec -it snipbox-web-1 python manage.py createsuperuser
+```
+
 
 The API will be available at `http://localhost:8000`
 
