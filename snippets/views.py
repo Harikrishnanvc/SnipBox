@@ -69,3 +69,14 @@ class TagView(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+    @action(detail=True, methods=['get'])
+    def snippets(self, request, pk=None):
+        """ Returns all snippets linked to specific tag """
+
+        tag = self.get_object()
+        snippets = Snippets.objects.filter(tags=tag).prefetch_related('tags')
+        serialized_snippets = SnippetsSerializer(snippets, many=True).data
+        response_data = {
+            "snippets": serialized_snippets
+        }
+        return Response(response_data, status=status.HTTP_200_OK)
