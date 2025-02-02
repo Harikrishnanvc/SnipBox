@@ -27,6 +27,18 @@ class SnippetView(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    @action(detail=False, methods=['get'])
+    def overview(self, request):
+        """ Returns all snippets details with total snippet count """
+
+        snippets = Snippets.objects.filter(user=self.request.user)
+        serialized_snippets = SnippetsSerializer(snippets, many=True).data
+        response_data = {
+            "total_snippets": snippets.count(),
+            "snippets": serialized_snippets
+        }
+        return Response(response_data, status=status.HTTP_200_OK)
+
     def destroy(self, request, *args, **kwargs):
         snippet_ids = request.data.get('ids', [])
         user = self.request.user
